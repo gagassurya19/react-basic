@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import '../src/assets/css/style.css'
+import 'materialize-css/dist/css/materialize.min.css'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Router from '../src/Router'
+import Navbar from '../src/parts/Navbar'
+import Footer from '../src/parts/Footer'
+
+export default class App extends Component {
+  render() {
+    return (
+      <div>
+        <Navbar/>
+        <Router/>
+        <Footer/>
+      </div>
+    )
+  }
 }
-
-export default App;
