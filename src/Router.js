@@ -5,6 +5,7 @@ import Beranda from '../src/scenes/Beranda'
 import Gallery from '../src/scenes/Gallery'
 import Kalender from '../src/scenes/Kalender'
 import ReactList from '../src/scenes/ReactList'
+import Cart from '../src/scenes/Cart'
 
 const Router = () => (
     <Switch>
@@ -12,6 +13,7 @@ const Router = () => (
         <Route path = "/gallery" component = { Gallery } />
         <Route path = "/kalender" component = { Kalender } />
         <Route path = "/album" component = { ReactList } />
+        <Route path = "/cart" component = { Cart } />
     </Switch>
 )
 

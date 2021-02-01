@@ -23,6 +23,8 @@ const Navbar = () => {
                         <li><Link to="/gallery">Gallery</Link></li>
                         <li><Link to="/kalender">Kalender</Link></li>
                         <li><Link to="/album">Album</Link></li>
+                        <li><Link to="/cart">Cart</Link></li>
+
                     </ul>
                     <a href="#menu" data-target="slide-out" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
                     </div>
@@ -30,6 +32,7 @@ const Navbar = () => {
                         <li><Link to="/" class="waves-effect">Beranda</Link></li>
                         <li><Link to="/gallery" class="waves-effect">Gallery</Link></li>
                         <li><Link to="/kalender" class="waves-effect">Kalender</Link></li>
+                        <li><Link to="/cart" class="waves-effect">Cart</Link></li>
                     </ul>
                 </div>
             </nav>

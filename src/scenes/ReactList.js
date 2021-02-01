@@ -4,12 +4,18 @@ import * as $ from "jquery";
 import M from 'materialize-css'
 
 class Album extends Component{
+
+    // fungsi yang dijalankan setelah halaman tereksekusi
+    // fungsi yang dijalankan setelah fungsi render
     componentDidMount(){
         document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('.modal');
             var instances = M.Modal.init(elems, {});
           });
+
+          this.setUser()
     }
+
     Add = () => {
         // menampilkan komponen modal
         const elem = document.getElementById('modal_buku');
@@ -82,9 +88,13 @@ class Album extends Component{
         if(window.confirm("Apakah anda yakin ingin menghapus data ini?")){
             // menghapus data
             let tempBuku = this.state.buku
+
+            console.log(item)
+            console.log(tempBuku)
             // posisi index data yg akan dihapus
             let index = tempBuku.indexOf(item)
 
+            console.log(index)
             // hapus data
             tempBuku.splice(index, 1)
 
@@ -92,6 +102,70 @@ class Album extends Component{
         }
     }
     
+    setUser = () => {
+        // check keberadaan session storage
+        if(localStorage.getItem("user") === null){
+            // kondisi jika session storage "user" BELUM dibuat
+            let prompt = window.prompt("Masukkan nama anda:","")
+            if(prompt === null || prompt === ""){
+                // jika user tidak mengisi nama
+                this.setUser()
+            }else{
+                // jika user mengisi nama
+                // simpan nama user ke session storage
+                localStorage.setItem("user", prompt)
+
+                // simpan nama user ke state.user
+                this.setState({ user: prompt })
+            }
+        }else{
+            // kondisi jika session storage "user" TELAH dibuat
+            // akses nilai dari session storage "user"
+            let name = localStorage.getItem("user")
+            this.setState({ user: name })
+        }
+    }
+
+    rmUser = () =>{
+        localStorage.removeItem("user")
+        this.setUser()
+    }
+
+    addToCart = (selectedItem) => {
+        // variable untuk menampung cart sementara
+        let tempCart = [] // array kosong
+
+        // cek keberadaan data cart pada local storage
+        if(localStorage.getItem("cart") !== null) {
+            tempCart = JSON.parse(localStorage.getItem("cart"))
+            // JSON.parse() digunakan untuk mengkonversi dari string ke array object
+        }
+
+        // cek data yang dipilih user ke keranjang belanja
+        let existItem = tempCart.find(item => item.isbn === selectedItem.isbn)
+
+        // cek hasil
+        if(existItem){
+            // jika item yang dipilih ada dikeranjang
+            window.alert("Item telah dikeranjang")
+        }else{
+            // user diminta memasukkan jumlah item yang dibeli
+            let promptJumlah = window.prompt("Masukkan jumlah item:", "")
+             if (promptJumlah !== null && promptJumlah !== ""){
+                //  jika user memasukkan jumlah item yang dibeli
+
+                // menambah property jumlahBeli pada item yang dipilih
+                selectedItem.jumlahBeli = promptJumlah
+
+                // masukkan item yang dipilih kedalam cart
+                tempCart.push(selectedItem)
+
+                // simpan array tempCart ke local storage
+                localStorage.setItem("cart", JSON.stringify(tempCart))
+             }
+        }
+    }
+
     constructor(){
         super()
         this.state = {
@@ -110,52 +184,7 @@ class Album extends Component{
                     isbn:"54321", judul:"Bumi", penulis:"Tere Liye",
                     penerbit:"CV Nusa Bangsa", harga: 70000,
                     cover:"https://drive.google.com/uc?id=1e-thvq7lkG1_gw0FqHzRoiAhfhdgpOUj"
-                },
-                {
-                    isbn:"12345", judul:"Bulan", penulis:"Tere Liye",
-                    penerbit:"CV Harapan Kita", harga: 90000,
-                    cover:"https://drive.google.com/uc?id=1ui-jyKgu3DqFyo7VKJu-FFXkaNQN3aSg"
-                },
-                {
-                    isbn:"12346", judul:"Anak Badai", penulis:"Tere Liye",
-                    penerbit:"CV Nusa Bangsa", harga: 80000,
-                    cover:"https://drive.google.com/uc?id=1rJDcCOmsd14NL6DG3Wps_kewZomGcLU-"
-                },
-                {
-                    isbn:"54321", judul:"Bumi", penulis:"Tere Liye",
-                    penerbit:"CV Nusa Bangsa", harga: 70000,
-                    cover:"https://drive.google.com/uc?id=1e-thvq7lkG1_gw0FqHzRoiAhfhdgpOUj"
-                },
-                {
-                    isbn:"12345", judul:"Bulan", penulis:"Tere Liye",
-                    penerbit:"CV Harapan Kita", harga: 90000,
-                    cover:"https://drive.google.com/uc?id=1ui-jyKgu3DqFyo7VKJu-FFXkaNQN3aSg"
-                },
-                {
-                    isbn:"12346", judul:"Anak Badai", penulis:"Tere Liye",
-                    penerbit:"CV Nusa Bangsa", harga: 80000,
-                    cover:"https://drive.google.com/uc?id=1rJDcCOmsd14NL6DG3Wps_kewZomGcLU-"
-                },
-                {
-                    isbn:"54321", judul:"Bumi", penulis:"Tere Liye",
-                    penerbit:"CV Nusa Bangsa", harga: 70000,
-                    cover:"https://drive.google.com/uc?id=1e-thvq7lkG1_gw0FqHzRoiAhfhdgpOUj"
-                },
-                {
-                    isbn:"12345", judul:"Bulan", penulis:"Tere Liye",
-                    penerbit:"CV Harapan Kita", harga: 90000,
-                    cover:"https://drive.google.com/uc?id=1ui-jyKgu3DqFyo7VKJu-FFXkaNQN3aSg"
-                },
-                {
-                    isbn:"12346", judul:"Anak Badai", penulis:"Tere Liye",
-                    penerbit:"CV Nusa Bangsa", harga: 80000,
-                    cover:"https://drive.google.com/uc?id=1rJDcCOmsd14NL6DG3Wps_kewZomGcLU-"
-                },
-                {
-                    isbn:"54321", judul:"Bumi", penulis:"Tere Liye",
-                    penerbit:"CV Nusa Bangsa", harga: 70000,
-                    cover:"https://drive.google.com/uc?id=1e-thvq7lkG1_gw0FqHzRoiAhfhdgpOUj"
-                },
+                }
             ],
 
             action: "",
@@ -166,11 +195,14 @@ class Album extends Component{
             harga: 0,
             cover: "",
             selectedItem: null,
+            user: ""
         }   
     }
+
     render(){
         return(
             <div className="container">
+                <blockquote>Nama User : <a href="#!" onClick={() => this.rmUser()}>{ this.state.user }</a></blockquote>
                 <div className="row">
                     { this.state.buku.map( (item, index) => (
                         <Card
@@ -179,8 +211,9 @@ class Album extends Component{
                         penerbit={item.penerbit}
                         harga={item.harga}
                         cover={item.cover}
-                        onEdit={ () => this.Edit(item)}
-                        onDrop={ () => this.Drop(item)}
+                        onEdit={ () => this.Edit(item) }
+                        onDrop={ () => this.Drop(item) }
+                        onCart={ () => this.addToCart(item) } 
                         />
                     )) }
                 </div>

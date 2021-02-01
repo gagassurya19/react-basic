@@ -18,6 +18,7 @@ const CardList = (props) => {
                     <div class="right-align">
                         <a class="waves-effect waves-light btn-small" onClick={ props.onEdit }><i class="material-icons">edit</i></a>
                         <a class="waves-effect waves-light btn-small red" onClick={ props.onDrop }><i class="material-icons">delete</i></a>
+                        <a class="waves-effect waves-light btn-small" onClick={ props.onCart }>Add</a>
                     </div>
                 </div>
                 </div>
