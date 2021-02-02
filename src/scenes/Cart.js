@@ -70,6 +70,22 @@ export default class Cart extends React.Component{
         }
     }
 
+    ubahJumlah = (item) => {
+        let tempBuku = this.state.cart
+
+        let promptJumlah = window.prompt("Masukkan jumlah item:", item.jumlahBeli)
+
+        item.jumlahBeli = promptJumlah
+        
+        // ganti data lama ke yang baru
+        // Don't use removeItem() that as the name says removes the whole item from localStorage. 
+        // Just do another setItem() to overwrite the old data.
+        localStorage.setItem('cart',JSON.stringify(tempBuku));
+        
+        // refresh page
+        window.location.reload(false);
+    }
+
     render(){
         return(
             <div className="container">
@@ -90,7 +106,9 @@ export default class Cart extends React.Component{
                             <tr key={ index }>
                                 <td>{ item.judul }</td>
                                 <td>Rp { item.harga }</td>
-                                <td>{ item.jumlahBeli }</td>
+                                <td>
+                                    <input value={ item.jumlahBeli } onClick={ this.item = () => this.ubahJumlah(item)}></input>
+                                </td>
                                 <td>Rp { item.jumlahBeli * item.harga }</td>
                                 <td>
                                     <a class="waves-effect waves-light btn-small red" onClick={ this.item = () => this.Drop(item) }><i class="material-icons">delete</i></a>
