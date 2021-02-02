@@ -41,7 +41,7 @@ export default class Cart extends React.Component{
 
     DropAll = () => {
         localStorage.removeItem("cart")
-        window.location.reload(false);
+        this.initCart()
     }
 
     Drop = (item) => {
@@ -65,8 +65,7 @@ export default class Cart extends React.Component{
             this.setState({buku: tempBuku})
             
             // refresh page
-            window.location.reload(false);
-
+            this.initCart()
         }
     }
 
@@ -83,7 +82,7 @@ export default class Cart extends React.Component{
         localStorage.setItem('cart',JSON.stringify(tempBuku));
         
         // refresh page
-        window.location.reload(false);
+        this.initCart()
     }
 
     render(){
@@ -107,7 +106,7 @@ export default class Cart extends React.Component{
                                 <td>{ item.judul }</td>
                                 <td>Rp { item.harga }</td>
                                 <td>
-                                    <input value={ item.jumlahBeli } onClick={ this.item = () => this.ubahJumlah(item)}></input>
+                                    <input value={ item.jumlahBeli } onClick={ () => this.ubahJumlah(item) }></input>
                                 </td>
                                 <td>Rp { item.jumlahBeli * item.harga }</td>
                                 <td>
